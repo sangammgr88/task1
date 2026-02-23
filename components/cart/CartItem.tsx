@@ -11,7 +11,11 @@ export default function CartItem({ item }: { item: CartItemType }) {
 
   return (
     <div className="bg-white rounded-3xl p-6 border border-gray-100 flex flex-col sm:flex-row items-center gap-6 hover:shadow-lg hover:shadow-gray-100 transition-all group">
-      <Link href={`/products/${item.id}`} className="w-32 h-32 flex-shrink-0 bg-gray-50 p-4 rounded-2xl relative overflow-hidden">
+      <Link 
+        href={`/products/${item.id}`} 
+        prefetch={false}
+        className="w-32 h-32 flex-shrink-0 bg-gray-50 p-4 rounded-2xl relative overflow-hidden"
+      >
         <Image 
           src={item.image} 
           alt={item.title} 
@@ -22,7 +26,7 @@ export default function CartItem({ item }: { item: CartItemType }) {
       </Link>
 
       <div className="flex-grow text-center sm:text-left">
-        <Link href={`/products/${item.id}`} className="block mb-1">
+        <Link href={`/products/${item.id}`} prefetch={false} className="block mb-1">
           <h3 className="font-bold text-gray-900 hover:text-indigo-600 transition-colors line-clamp-1 text-lg">
             {item.title}
           </h3>

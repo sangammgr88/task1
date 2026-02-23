@@ -57,7 +57,11 @@ export default function ProductGrid({ products, searchParams }: ProductGridProps
           key={product.id} 
           className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-indigo-100 transition-all duration-300 flex flex-col"
         >
-          <Link href={`/products/${product.id}`} className="block relative aspect-square bg-gray-50 p-8 overflow-hidden">
+          <Link 
+            href={`/products/${product.id}`} 
+            prefetch={false}
+            className="block relative aspect-square bg-gray-50 p-8 overflow-hidden"
+          >
             <Image 
               src={product.image} 
               alt={product.title} 

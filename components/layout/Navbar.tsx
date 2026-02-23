@@ -10,45 +10,56 @@ export default function Navbar() {
   const { user, logout } = useAuth()
 
   return (
-    <nav className="bg-white border-b sticky top-0 z-50">
+    <nav className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+        <div className="flex justify-between h-20 items-center">
           <div className="flex items-center">
-            <Link href="/products" className="text-xl font-bold text-indigo-600">
-              FakeStore
+            <Link href="/products" prefetch={false} className="flex items-center gap-2 group">
+              <div className="bg-indigo-600 p-2 rounded-xl group-hover:rotate-12 transition-transform shadow-lg shadow-indigo-100">
+                <Package className="w-6 h-6 text-white" />
+              </div>
+              <span className="text-xl font-black text-gray-900 tracking-tighter">
+                FakeStore<span className="text-indigo-600">.</span>
+              </span>
             </Link>
           </div>
 
-          <div className="flex items-center space-x-6">
-            <Link href="/products" className="text-gray-600 hover:text-indigo-600 transition">
-              Products
-            </Link>
-            
-            <Link href="/cart" className="relative text-gray-600 hover:text-indigo-600 transition">
-              Cart
+          <div className="flex items-center gap-8">
+            <Link 
+              href="/cart" 
+              prefetch={false}
+              className="relative p-2 text-gray-400 hover:text-indigo-600 transition-colors group"
+            >
+              <ShoppingCart className="w-6 h-6 group-hover:scale-110 transition-transform" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-3 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-[10px] font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-white shadow-sm">
                   {totalItems}
                 </span>
               )}
             </Link>
 
             {user ? (
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-500">Hi, {user.username}</span>
+              <div className="flex items-center gap-6 pl-6 border-l border-gray-100">
+                <div className="flex flex-col items-end">
+                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Logged in as</span>
+                  <span className="text-sm font-black text-gray-900">{user.username}</span>
+                </div>
                 <button
                   onClick={logout}
-                  className="text-sm bg-gray-100 px-4 py-2 rounded-md hover:bg-gray-200 transition"
+                  className="p-3 bg-gray-50 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                  title="Logout"
                 >
-                  Logout
+                  <LogOut className="w-5 h-5" />
                 </button>
               </div>
             ) : (
               <Link
                 href="/login"
-                className="text-sm bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
+                prefetch={false}
+                className="flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-2xl font-bold hover:bg-indigo-700 transition-all active:scale-95 shadow-lg shadow-indigo-100"
               >
-                Login
+                <LogIn className="w-5 h-5" />
+                Sign In
               </Link>
             )}
           </div>
