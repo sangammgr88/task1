@@ -1,5 +1,4 @@
 
-// Always fetches from FakeStoreAPI — hardcoded to avoid Vercel env misconfiguration
 const BASE_URL = "https://fakestoreapi.com";
 
 export async function apiFetch<T>(
@@ -13,8 +12,6 @@ export async function apiFetch<T>(
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
         ...options.headers,
       },
     });

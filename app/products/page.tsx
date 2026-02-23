@@ -1,3 +1,4 @@
+"use client"
 import { apiFetch } from '@/services/api.service'
 import { Product, SortOrder } from '@/types'
 import ProductGrid from '@/components/product/ProductGrid'
