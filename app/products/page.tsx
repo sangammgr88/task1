@@ -20,21 +20,20 @@ async function getCategories() {
   return apiFetch<string[]>('/products/categories')
 }
 
-export default async function ProductsPage({ searchParams }: { searchParams: Promise<Props['searchParams']> }) {
-  const resolvedParams = await searchParams
-  const sort = resolvedParams.sort || 'asc'
-  
-  let data: { products: Product[], categories: string[] } | null = null
-  let error: string | null = null
+export default async function ProductsPage({ searchParams }: Props) {
+  const sort = searchParams.sort || 'asc';
+
+  let data: { products: Product[], categories: string[] } | null = null;
+  let error: string | null = null;
 
   try {
     const [products, categories] = await Promise.all([
       getProducts(sort),
       getCategories()
-    ])
-    data = { products, categories }
+    ]);
+    data = { products, categories };
   } catch (e) {
-    error = e instanceof Error ? e.message : 'Failed to fetch'
+    error = e instanceof Error ? e.message : 'Failed to fetch';
   }
 
   if (error || !data) {
@@ -51,7 +50,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
     )
   }
 
-  const { products, categories } = data
+  const { products, categories } = data;
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -66,14 +65,16 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
 
       <Filters categories={categories} />
       
-      <Suspense fallback={<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[1,2,3,4,5,6].map(i => (
-          <div key={i} className="animate-pulse bg-gray-200 h-64 rounded-xl"></div>
-        ))}
-      </div>}>
+      <Suspense fallback={
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[1,2,3,4,5,6].map(i => (
+            <div key={i} className="animate-pulse bg-gray-200 h-64 rounded-xl"></div>
+          ))}
+        </div>
+      }>
         <ProductGrid 
           products={products} 
-          searchParams={resolvedParams}
+          searchParams={searchParams}
         />
       </Suspense>
     </div>
