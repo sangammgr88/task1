@@ -1,12 +1,13 @@
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://fakestoreapi.com";
+const BASE_URL = "https://fakestoreapi.com";
 
 export async function apiFetch<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
   const url = `${BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-  console.log("Fetching from:", url);
+  console.log("▶ SERVER is calling:", url); 
+
   try {
     const res = await fetch(url, {
       ...options,

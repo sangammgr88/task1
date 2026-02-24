@@ -22,19 +22,19 @@ async function getCategories() {
 
 export default async function ProductsPage({ searchParams }: Props) {
   const resolvedParams = await searchParams
-  const sort = resolvedParams.sort || 'asc';
+  const sort = resolvedParams.sort || 'asc'
 
-  let data: { products: Product[], categories: string[] } | null = null;
-  let error: string | null = null;
+  let data: { products: Product[], categories: string[] } | null = null
+  let error: string | null = null
 
   try {
     const [products, categories] = await Promise.all([
       getProducts(sort),
       getCategories()
-    ]);
-    data = { products, categories };
+    ])
+    data = { products, categories }
   } catch (e) {
-    error = e instanceof Error ? e.message : 'Failed to fetch';
+    error = e instanceof Error ? e.message : 'Failed to fetch'
   }
 
   if (error || !data) {
@@ -51,7 +51,7 @@ export default async function ProductsPage({ searchParams }: Props) {
     )
   }
 
-  const { products, categories } = data;
+  const { products, categories } = data
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -65,7 +65,7 @@ export default async function ProductsPage({ searchParams }: Props) {
       </div>
 
       <Filters categories={categories} />
-      
+
       <Suspense fallback={
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[1,2,3,4,5,6].map(i => (
@@ -73,8 +73,8 @@ export default async function ProductsPage({ searchParams }: Props) {
           ))}
         </div>
       }>
-        <ProductGrid 
-          products={products} 
+        <ProductGrid
+          products={products}
           searchParams={resolvedParams}
         />
       </Suspense>
