@@ -1,4 +1,3 @@
-"use client"
 import { apiFetch } from '@/services/api.service'
 import { Product, SortOrder } from '@/types'
 import ProductGrid from '@/components/product/ProductGrid'
@@ -6,11 +5,11 @@ import Filters from '@/components/product/Filters'
 import { Suspense } from 'react'
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     sort?: SortOrder
     category?: string
     search?: string
-  }
+  }>
 }
 
 async function getProducts(sort: SortOrder = 'asc') {
@@ -22,7 +21,8 @@ async function getCategories() {
 }
 
 export default async function ProductsPage({ searchParams }: Props) {
-  const sort = searchParams.sort || 'asc';
+  const resolvedParams = await searchParams
+  const sort = resolvedParams.sort || 'asc';
 
   let data: { products: Product[], categories: string[] } | null = null;
   let error: string | null = null;
@@ -75,7 +75,7 @@ export default async function ProductsPage({ searchParams }: Props) {
       }>
         <ProductGrid 
           products={products} 
-          searchParams={searchParams}
+          searchParams={resolvedParams}
         />
       </Suspense>
     </div>
