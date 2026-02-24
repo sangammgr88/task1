@@ -34,6 +34,7 @@ export default async function ProductsPage({ searchParams }: Props) {
     ])
     data = { products, categories }
   } catch (e) {
+    console.log("e",e)
     error = e instanceof Error ? e.message : 'Failed to fetch'
   }
 
