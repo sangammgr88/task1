@@ -6,7 +6,7 @@ export async function apiFetch<T>(
   options: RequestInit = {}
 ): Promise<T> {
   const url = `${BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-
+  console.log("Fetching from:", url);
   try {
     const res = await fetch(url, {
       ...options,
